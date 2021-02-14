@@ -42,41 +42,52 @@
 </template>
 
 <script>
-import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
-import { required, email } from 'vee-validate/dist/rules'
+import * as Cookies from 'js-cookie'
+import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import Swal from 'sweetalert2'
 import { Constants } from '../constants'
-
-extend('required', {
-  ...required,
-  message: 'This field is required',
-})
-
-extend('email', {
-  ...email,
-  message: 'Invalid email',
-})
 
 export default {
   components: {
     ValidationObserver,
-    ValidationProvider,
+    ValidationProvider
   },
   data() {
     return {
       userName: '',
-      password: '',
+      password: ''
     }
   },
   methods: {
-    async onSubmit(e) {
+    onSubmit(e) {
       e.preventDefault()
-      const auth = await this.$axios.$post(Constants.API.LOGIN, {
-        email: this.userName,
-        password: this.password,
-      })
-      console.log(auth)
-    },
-  },
+      this.$axios
+        .$post(Constants.API.LOGIN, {
+          email: this.userName,
+          password: this.password
+        })
+        .then((res) => {
+          const { statusCode, data } = res
+          if (statusCode === 200) {
+            Cookies.set('testScgToken', data.testScgToken, { path: '/' })
+            Cookies.set('testScgRefreshToken', data.testScgRefreshToken, {
+              path: '/'
+            })
+            this.$router.push('/admin/dashboard')
+          }
+        })
+        .catch((error) => {
+          const { response: { data = {} } = {} } = error
+          const title = data.error || 'Error'
+          const text = data.message || 'unavailable'
+          Swal.fire({
+            icon: 'error',
+            title,
+            text
+          })
+        })
+    }
+  }
 }
 </script>
 
