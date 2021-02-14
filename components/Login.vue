@@ -3,12 +3,12 @@
     <div class="login-main">
       <div class="col-12 col-lg-6">
         <ValidationObserver v-slot="{ invalid }">
-          <form @submit="onSubmit">
+          <b-form @submit="onSubmit">
             <ValidationProvider v-slot="{ errors }" rules="required|email">
-              <input
+              <b-form-input
                 v-model="userName"
                 type="email"
-                class="form-control form-control-lg"
+                class="form-control-lg"
                 placeholder="Email"
               />
               <div class="invalid-message">
@@ -16,25 +16,26 @@
               </div>
             </ValidationProvider>
             <ValidationProvider v-slot="{ errors }" rules="required">
-              <input
+              <b-form-input
                 v-model="password"
                 type="password"
-                class="form-control form-control-lg mt-3"
+                class="form-control-lg mt-3"
                 placeholder="Password"
               />
               <div class="invalid-message">
                 {{ errors[0] }}
               </div>
             </ValidationProvider>
-            <button
+            <b-button
+              variant="primary"
               type="submit"
-              class="btn btn-primary btn-lg btn-block mt-5"
+              class="btn-lg btn-block mt-5"
               :disabled="invalid"
               @click="onSubmit"
             >
               Login
-            </button>
-          </form>
+            </b-button>
+          </b-form>
         </ValidationObserver>
       </div>
     </div>
@@ -73,7 +74,13 @@ export default {
             Cookies.set('testScgRefreshToken', data.testScgRefreshToken, {
               path: '/'
             })
-            this.$router.push('/admin/dashboard')
+            this.$router.push('/admin/vendingmachine')
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'something wrong'
+            })
           }
         })
         .catch((error) => {
