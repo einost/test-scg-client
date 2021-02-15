@@ -3,7 +3,7 @@
     <div class="login-main">
       <div class="col-12 col-lg-6">
         <ValidationObserver v-slot="{ invalid }">
-          <b-form @submit="onSubmit">
+          <b-form @submit="onSubmit()">
             <ValidationProvider v-slot="{ errors }" rules="required|email">
               <b-form-input
                 v-model="userName"
@@ -27,11 +27,12 @@
               </div>
             </ValidationProvider>
             <b-button
+              block
               variant="primary"
-              type="submit"
-              class="btn-lg btn-block mt-5"
+              size="lg"
+              class="mt-5"
               :disabled="invalid"
-              @click="onSubmit"
+              @click="onSubmit()"
             >
               Login
             </b-button>
@@ -43,9 +44,9 @@
 </template>
 
 <script>
-import * as Cookies from 'js-cookie'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import Swal from 'sweetalert2'
+import { Auth } from '../auth'
 import { Constants } from '../constants'
 
 export default {
@@ -59,40 +60,40 @@ export default {
       password: ''
     }
   },
+  created() {
+    Auth.removeToken()
+  },
   methods: {
-    onSubmit(e) {
-      e.preventDefault()
-      this.$axios
-        .$post(Constants.API.LOGIN, {
-          email: this.userName,
-          password: this.password
-        })
-        .then((res) => {
-          const { statusCode, data } = res
-          if (statusCode === 200) {
-            Cookies.set('testScgToken', data.testScgToken, { path: '/' })
-            Cookies.set('testScgRefreshToken', data.testScgRefreshToken, {
-              path: '/'
-            })
-            this.$router.push('/admin/vendingmachine')
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'something wrong'
-            })
-          }
-        })
-        .catch((error) => {
-          const { response: { data = {} } = {} } = error
-          const title = data.error || 'Error'
-          const text = data.message || 'unavailable'
+    async onSubmit() {
+      try {
+        const result = await this.$axios
+          .$post(Constants.API.LOGIN, {
+            email: this.userName,
+            password: this.password
+          })
+          .then((res) => res)
+        const { statusCode, data } = result
+        if (statusCode === 200) {
+          Auth.setToken(data.testScgToken, data.testScgRefreshToken)
+          this.$router.push('/admin/machine')
+        } else {
           Swal.fire({
             icon: 'error',
-            title,
-            text
+            title: 'Error',
+            text: 'something wrong'
           })
+        }
+      } catch (error) {
+        console.log(error)
+        const { response: { data = {} } = {} } = error
+        const title = data.error || 'Error'
+        const text = data.message || 'unavailable'
+        Swal.fire({
+          icon: 'error',
+          title,
+          text
         })
+      }
     }
   }
 }

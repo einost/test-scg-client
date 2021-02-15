@@ -5,7 +5,7 @@
         <!-- <b-table hover dark :items="vendingMachineList.docs"> -->
         <table class="table table-hover">
           <thead>
-            <th scope="col">Machine ID</th>
+            <th scope="col">#</th>
             <th scope="col">Type</th>
             <th scope="col">Status</th>
             <th scope="col">Address</th>
@@ -13,10 +13,10 @@
           </thead>
           <tbody v-if="!isLoading">
             <tr
-              v-for="vendingMachine in vendingMachineList.data"
+              v-for="(vendingMachine, i) in vendingMachineList.data"
               :key="vendingMachine.id"
             >
-              <td scope="row">{{ vendingMachine.id }}</td>
+              <td scope="row">{{ page * limit - limit + (i + 1) }}</td>
               <td>{{ vendingMachine.machineType }}</td>
               <td>{{ getStatusDescription(vendingMachine.statusId) }}</td>
               <td>
@@ -107,8 +107,11 @@ export default {
             icon: 'error',
             title,
             text
+          }).then(() => {
+            if (data.statusCode === 401) {
+              this.$router.push('/admin')
+            }
           })
-          this.hiddenLoading()
         })
     },
     visibleLoading() {
@@ -136,8 +139,7 @@ export default {
       }
     },
     onPageChange() {
-      console.log(this.page)
-      // this.getVendingMachineList()
+      this.getVendingMachineList()
     }
   }
 }
@@ -146,6 +148,12 @@ export default {
 <style lang="scss">
 .vendingmachine-main {
   height: 100vh;
+
+  @media (max-width: 575px) {
+    .container {
+      padding-left: 71px;
+    }
+  }
 
   .table {
     th,
