@@ -1,43 +1,46 @@
 <template>
-  <div class="container">
-    <div class="login-main">
-      <div class="col-12 col-lg-6">
-        <ValidationObserver v-slot="{ invalid }">
-          <b-form @submit="onSubmit()">
-            <ValidationProvider v-slot="{ errors }" rules="required|email">
-              <b-form-input
-                v-model="userName"
-                type="email"
-                class="form-control-lg"
-                placeholder="Email"
-              />
-              <div class="invalid-message">
-                {{ errors[0] }}
-              </div>
-            </ValidationProvider>
-            <ValidationProvider v-slot="{ errors }" rules="required">
-              <b-form-input
-                v-model="password"
-                type="password"
-                class="form-control-lg mt-3"
-                placeholder="Password"
-              />
-              <div class="invalid-message">
-                {{ errors[0] }}
-              </div>
-            </ValidationProvider>
-            <b-button
-              block
-              variant="primary"
-              size="lg"
-              class="mt-5"
-              :disabled="invalid"
-              @click="onSubmit()"
-            >
-              Login
-            </b-button>
-          </b-form>
-        </ValidationObserver>
+  <div class="login-main">
+    <div class="container">
+      <div class="row">
+        <div class="login-box col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+          <h1 class="display-3 text-center mb-5">Dashboard</h1>
+          <ValidationObserver v-slot="{ invalid }">
+            <b-form @submit="onSubmit()">
+              <ValidationProvider v-slot="{ errors }" rules="required|email">
+                <b-form-input
+                  v-model="userName"
+                  type="email"
+                  class="form-control-lg"
+                  placeholder="Email"
+                />
+                <div class="invalid-message">
+                  {{ errors[0] }}
+                </div>
+              </ValidationProvider>
+              <ValidationProvider v-slot="{ errors }" rules="required">
+                <b-form-input
+                  v-model="password"
+                  type="password"
+                  class="form-control-lg mt-3"
+                  placeholder="Password"
+                />
+                <div class="invalid-message">
+                  {{ errors[0] }}
+                </div>
+              </ValidationProvider>
+              <b-button
+                block
+                variant="primary"
+                size="lg"
+                class="mt-5"
+                :disabled="invalid"
+                @click="onSubmit()"
+              >
+                Login
+              </b-button>
+            </b-form>
+          </ValidationObserver>
+        </div>
       </div>
     </div>
   </div>
@@ -99,13 +102,30 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .login-main {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  background: rgb(238, 174, 202);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+
+  .login-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+    @media (max-width: 575px) {
+      h1 {
+        font-size: 3rem;
+      }
+    }
+  }
 }
 
 .invalid-message {

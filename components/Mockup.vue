@@ -30,7 +30,7 @@
           block
           variant="primary"
           size="lg"
-          class="mt-5"
+          class="my-5"
           :disabled="isLoading"
           @click="onSubmit()"
         >

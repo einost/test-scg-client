@@ -1,5 +1,5 @@
 <template>
-  <div class="vendingmachine-main jumbotron jumbotron-fluid mb-0">
+  <div class="vendingmachine-main">
     <div class="container">
       <div class="table-responsive bg-white">
         <!-- <b-table hover dark :items="vendingMachineList.docs"> -->
@@ -147,11 +147,20 @@ export default {
 
 <style lang="scss">
 .vendingmachine-main {
-  height: 100vh;
+  background: rgb(238, 174, 202);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+  margin-left: 53px;
+  min-height: 100vh;
 
-  @media (max-width: 575px) {
-    .container {
-      padding-left: 71px;
+  .container {
+    padding: 1rem;
+
+    @media (min-width: 992px) {
+      padding: 3rem;
     }
   }
 
@@ -161,10 +170,10 @@ export default {
       white-space: nowrap;
     }
   }
-}
 
-.vendingmachine-pagination {
-  display: flex;
-  justify-content: flex-end;
+  .vendingmachine-pagination {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 </style>
