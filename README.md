@@ -20,9 +20,9 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 
 ### `Route`
 
-- `/` Mockup template for simulate buy product
-- `/admin` Login template
-- `/admin/machine` Dashboard
+- `/` Mockup template for simulate buy product.
+- `/admin` Login template.
+- `/admin/machine` Dashboard.
 
 ### Demo
 [Video Guide](https://drive.google.com/file/d/15PQ2VAAv_T48Q-RGO96a09oxafqBhUKT/view?usp=sharing)
