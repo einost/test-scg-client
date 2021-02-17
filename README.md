@@ -7,8 +7,6 @@ Web application of vending machine solution. This project has repositories as be
 - [test-scg-service-draft](https://github.com/einost/test-scg-service-draft) (Express.js)
 - [test-scg-sdk](https://github.com/einost/test-scg-sdk) (Dependency of scg service)
 
-### [Demo](https://drive.google.com/file/d/15PQ2VAAv_T48Q-RGO96a09oxafqBhUKT/view?usp=sharing)
-
 ### `Installation`
 
 ```bash
@@ -26,19 +24,26 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 - `/admin` Login template
 - `/admin/machine` Dashboard
 
-## Screenshots
-<p style="margin-bottom:30px;">
-<img style="width:100%" src="./static/docs/screenshots/process.png"/>
+### Demo
+[Video Guide](https://drive.google.com/file/d/15PQ2VAAv_T48Q-RGO96a09oxafqBhUKT/view?usp=sharing)
+
+### Solution Design
+[Vending Machine Solution](./static/docs/design/vending-machine-solution.pdf)
+
+### Screenshots
+
+<p align="center">
+  <img width="100%" style="margin-bottom:30px;" src="./static/docs/screenshots/process.png"/>
 </p>
-<p style="margin-bottom:30px;">
-<img style="width:320px;" src="./static/docs/screenshots/mockup.png"/>
+<p align="center">
+  <img width="100%" style="margin-bottom:30px;" src="./static/docs/screenshots/mockup.png"/>
 </p>
-<p style="margin-bottom:30px;">
-<img style="width:320px;" src="./static/docs/screenshots/email.png"/>
+<p align="center">
+  <img width="100%" style="margin-bottom:30px;" margin-bottom: 20px;" src="./static/docs/screenshots/email.png"/>
 </p>
-<p style="margin-bottom:30px;">
-<img style="width:320px;" src="./static/docs/screenshots/login.png"/>
+<p align="center">
+  <img width="100%" style="margin-bottom:30px;" src="./static/docs/screenshots/login.png"/>
 </p>
-<p style="margin-bottom:30px;">
-<img style="width:100%" src="./static/docs/screenshots/dashboard.png"/>
+<p align="center">
+  <img width="100%" style="margin-bottom:30px;" src="./static/docs/screenshots/dashboard.png"/>
 </p>
